@@ -15,20 +15,19 @@ Future <List<PhoneList>> getPhoneList() async{
 
 }
 
-
-class PhoneList{
-  final String Id;
+ class PhoneList  {
+  final int id;
   final String name;
-  final String brand;
-  final String urlImage;
+  final String Brand;
+  final String image_url;
 
-  PhoneList({this.Id, this.name,this.brand,this.urlImage});
+  PhoneList({this.id, this.name,this.Brand,this.image_url});
   factory PhoneList.fromJson(Map<String, dynamic> json){
     return PhoneList(
-      Id: json['Id'],
+      id: json['id'],
       name: json['name'],
-      brand: json['brand'],
-      urlImage: json['urlImage'],
+      Brand: json['Brand'],
+      image_url: json['image_url'],
     );
   }
 }

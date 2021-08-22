@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile_shop/service/list_phones.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
 
 
 
@@ -16,12 +16,18 @@ class ListPhones extends StatefulWidget {
 class _ListPhonesState extends State<ListPhones> {
   Future <List<PhoneList>> phoneList;
 
-  String url_Get='https://www.paa.ubuni.co.tz/phones';
+
 
 
   @override
+  void initState (){
+    super.initState();
+    phoneList=getPhoneList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //getPhoneList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
@@ -43,14 +49,21 @@ class _ListPhonesState extends State<ListPhones> {
                     child: ListTile(
                       onTap: (){
                         Navigator.pushNamed(context ,'/view_phone', arguments:{
-                          'Id': data[index].Id,
+                          'id': data[index].id,
+                          'name': data[index].name,
+                          'brand': data[index].Brand,
+                          'image_url': data[index].image_url,
                         });
                       },
-                      title:Text('Id - ${data[index].Id}'),
-                      leading: CircleAvatar(
-                        backgroundImage:NetworkImage(data[index].urlImage),
+                      title:Text('Id - ${data[index].id}'),
+
+                      leading:ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        child: Image.network('${data[index].image_url}'),
+
                       ),
                       subtitle: Text(data[index].name),
+
 
                     ),
 

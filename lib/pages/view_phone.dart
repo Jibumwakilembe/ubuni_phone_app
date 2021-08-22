@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
 
 
 class ViewPhone extends StatefulWidget {
@@ -9,29 +7,21 @@ class ViewPhone extends StatefulWidget {
 }
 
 class _ViewPhoneState extends State<ViewPhone> {
-  String Id;
+  int id;
+  Map data={};
   String name;
   String brand;
   String image_url;
 
-  String getId(String Id){
-    return this.Id=Id;
-  }
 
-  void viewPhone() async{
-    Response response=await get('https://www.paa.ubuni.co.tz/phones/:$Id');
-    Map data=jsonDecode(response.body);
-    Id=data['Id'];
+  @override
+  Widget build(BuildContext context) {
+    data=ModalRoute.of(context).settings.arguments;
+    id=data['id'];
     name=data['name'];
     brand=data['brand'];
     image_url=data['image_url'];
 
-
-  }
-  @override
-  Widget build(BuildContext context) {
-    Id=ModalRoute.of(context).settings.arguments;
-    getId(Id);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,37 +31,41 @@ class _ViewPhoneState extends State<ViewPhone> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage('$image_url'),
-                radius: 40,
-              ),
-              SizedBox(height: 20,),
-
-              Text(
-                  'Id-$Id',
-                style: TextStyle(
-                  fontSize: 18,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  child: Image.network('$image_url'),
                 ),
               ),
-              SizedBox(height: 20,),
+
+              SizedBox(height: 30,),
+
+              Text(
+                  'Id-$id',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              SizedBox(height: 30,),
 
               Text(
                   'name-$name',
                   style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 30,
                    ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 30,),
 
               Text(
                   'brand-$brand',
                      style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 38,
                    ),
               ),
             ],
